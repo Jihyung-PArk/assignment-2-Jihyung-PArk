@@ -201,8 +201,8 @@ def method_priority(appending_list):
                 break
 
         # # check priority_input is not integer
-         except ValueError:
-             print("Invalid input; enter a valid number")
+        except ValueError:
+            print("Invalid input; enter a valid number")
 
 def mark_place_error_check(list_of_places, num):
     while True:
