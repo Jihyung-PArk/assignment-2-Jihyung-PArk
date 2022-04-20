@@ -2,9 +2,8 @@
 File name : placecollection.py
 github URL: https://github.com/Jihyung-PArk/assignment-2-Jihyung-PArk.git
 """
-import csv
 from place import Place
-from a1_classes
+import csv
 
 
 # Constants
@@ -24,6 +23,7 @@ class PlaceCollection(Place):
         return '\n'.join(str(place) for place in self.places)
 
     def load_places(self, places):
+
         try:
             infile = open(FILE_NAME, 'r')
             for line in infile:
@@ -34,12 +34,7 @@ class PlaceCollection(Place):
                 self.places.append(temp_list)
 
                 # list sort by visited status and by priority
-                self.sort(places)
             infile.close()
-            print("{} places loaded from {}".format(len(places), FILE_NAME))
-
-            # (check point) below print check list element
-            # print(places)
 
         except IOError as error:
             print("I/O error: {}".format(error))
@@ -54,27 +49,16 @@ class PlaceCollection(Place):
             print('{} places saved to {}'.format(len(places), csv_file))
 
     def add_place(self, places):
-        appending_list = super().__init__()
-        # Add name and check error
-        self.method_name(appending_list)
 
-        # add country and check error
-        self.method_country(appending_list)
 
-        # add priority and check error
-        self.method_priority(appending_list)
 
-        # new place is always un_visit
-        appending_list.append("n")
 
-        # print new place information
-        print(
-            "{0} in {1} (priority {2}) added to Travel Tracker".format(appending_list[0],
-                                                                       appending_list[1],
-                                                                       appending_list[2]))
-        # add new place information and sort by visited status and by priority
-        places.append(appending_list)
-        self.sort(places)
+
+
+
+
+
+
 
     def num_of_unvisited_places(self, places):
         num = 0
