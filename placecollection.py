@@ -4,6 +4,7 @@ github URL: https://github.com/Jihyung-PArk/assignment-2-Jihyung-PArk.git
 """
 import csv
 from place import Place
+from a1_classes
 
 
 # Constants
@@ -53,7 +54,7 @@ class PlaceCollection(Place):
             print('{} places saved to {}'.format(len(places), csv_file))
 
     def add_place(self, places):
-        appending_list = []
+        appending_list = super().__init__()
         # Add name and check error
         self.method_name(appending_list)
 
@@ -110,95 +111,3 @@ class PlaceCollection(Place):
         self.places.sort(key=lambda priority: priority[2])
         self.places.sort(key=lambda visit: visit[3])
         return places
-
-    def method_name(self, appending_list):
-        while True:
-            name_input = str(input("Name: "))
-            # check name_input is blank
-            if name_input == "":
-                print("Input can not be blank")
-            # check name_input is integer
-            elif name_input.isnumeric() or name_input[0] == "-":
-                print("Input can not be integer")
-            else:
-                appending_list.append(name_input)
-                break
-
-    def method_country(self, appending_list):
-        while True:
-            country_input = input("Country: ")
-            # check county_input is blank
-            if country_input == "":
-                print("Input can not be blank")
-            # check country_input is integer
-            elif country_input.isnumeric() or country_input[0] == "-":
-                print("Input can not be integer")
-            else:
-                appending_list.append(country_input)
-                break
-
-    def method_priority(self, appending_list):
-        while True:
-            try:
-                priority_input = int(input("Priority: "))
-
-                # check priority_input is negative number
-                if int(priority_input) <= 0:
-                    print("Number must be > 0")
-                else:
-                    appending_list.append(priority_input)
-                    break
-
-            # check priority_input is not integer
-            except ValueError:
-                print("Invalid input; enter a valid number")
-
-    def find_max_name(self, places):
-        name_list = []
-        for i in range(0, len(places)):
-            name_list.append(places[i][0])
-        max_name = sorted(name_list, key=len)
-        max_name = max_name[-1]
-        return len(max_name)
-
-    def find_max_country(self, places):
-        country_list = []
-        for i in range(0, len(places)):
-            country_list.append(places[i][1])
-        max_country = sorted(country_list, key=len)
-        max_country = max_country[-1]
-        return len(max_country)
-
-    def mark_place_error_check(self, places, num):
-        while True:
-            try:
-                list_change = int(input("Enter the number of a place to mark as visited :"))
-                list_change_for_csv = list_change
-                list_change_for_csv -= 1
-
-                if int(list_change) <= 0:
-                    print("Number must be > 0")
-
-                elif int(list_change) > num:
-                    print("Invalid place number")
-
-                # check mark
-                elif places[int(list_change_for_csv)][3] == "v":
-                    print("That place is already visited")
-                    break
-
-                else:
-                    # change mark
-                    places[int(list_change_for_csv)][3] = "v"
-                    print("{0} in {1} visited".format(places[list_change_for_csv][0],
-                                                      places[list_change_for_csv][1]))
-                    break
-            except ValueError:
-                print("Invalid input; enter a valid number")
-
-    def display_menu(self):
-        print("Menu:")
-        print("L - List places")
-        print("A - Add new place")
-        print("M - Mark a place as visited")
-        print("Q - Quit")
