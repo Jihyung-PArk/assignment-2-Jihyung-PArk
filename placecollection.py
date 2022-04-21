@@ -39,13 +39,17 @@ class PlaceCollection:
             print("I/O error: {}".format(error))
 
     def save_places(self, file_name):
-        infile = open(file_name, "w")
-        writer = csv.writer(infile)
-        # save new csv file
-        writer.writerows(self.places)
-        infile.close()
 
-        return self.places
+        try:
+            infile = open(file_name, "w")
+            writer = csv.writer(infile)
+            writer.writerows(self.places)
+            infile.close()
+
+            return self.places
+
+        except:
+
 
     def add_place(self, Place):
 
