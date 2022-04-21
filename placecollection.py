@@ -22,7 +22,7 @@ class PlaceCollection(Place):
     def __str__(self):
         return '\n'.join(str(place) for place in self.places)
 
-    def load_places(self, places):
+    def load_places(self, FILE_NAME):
 
         try:
             infile = open(FILE_NAME, 'r')
@@ -36,62 +36,67 @@ class PlaceCollection(Place):
                 # list sort by visited status and by priority
             infile.close()
 
+            return self.places
         except IOError as error:
             print("I/O error: {}".format(error))
 
-    def save_places(self, csv_file, places):
+    def save_places(self, FILE_NAME):
             infile = open(FILE_NAME, "w")
             writer = csv.writer(infile)
             # save new csv file
-            writer.writerows(places)
+            writer.writerows(self.places)
             infile.close()
 
-            print('{} places saved to {}'.format(len(places), csv_file))
+            return self.places
 
-    def add_place(self, places):
+    def add_place(self, Place):
+        # add_list = []
+        #
+        # places_test = super().__str__()
+        # add_list.append(places_test)
+        #
+        # print(places_test)
+        #
+        # print(add_list)
+        # infile = open(FILE_NAME, 'a')
+        # self.places.append(Place)
+        # infile.close()
+        pass
 
+    def sort(self, sort_element):
+        if sort_element == "priority":
+            self.places.sort(key=lambda priority: priority[2], reverse=True)
+            return self.places
+        elif sort_element == "name":
+            self.places.sort(key=lambda name: name[0])
+            return self.places
+        elif sort_element == "country":
+            self.places.sort(key=lambda country: country[1])
+            return self.places
+        elif sort_element == "is_visited":
+            self.places.sort(key=lambda is_visited: is_visited[3], reverse=True)
+            return self.places
 
-
-
-
-
-
-
-
-
-
-    def num_of_unvisited_places(self, places):
-        num = 0
-        num_check = 0
-        visit = 0
+    def get_num_of_unvisited(self):
         un_visit = 0
+        for line in self.places:
+            if line[3] == "n":
+                un_visit += 1
+            return un_visit
 
-        # list sort by visited status and by priority
-        self.sort(places)
+        print("{} place(s) unvisited".format(un_visit))
 
-        # check visit and un_visit place number
-        for list_check in places:
-            num_check += 1
-            visit += list_check[3].count("v")
-            un_visit += list_check[3].count("n")
 
-        # check no un_visit place
-        if num_check == visit:
-            print("No unvisited places")
-        else:
 
-            # list of places
-            for places in places:
-                num += 1
-                print("{0}. {1: <{2}} in {3: <{4}} priority {5}".
-                      format(num, places[0], self.find_max_name(places), places[1],
-                             self.find_max_country(places), places[2]))
-            print("{0} places. You still want to visit {1} places.".format(num, un_visit))
 
-            # check input(mark) error
-            self.mark_place_error_check(places, num)
 
-    def sort(self, places):
-        self.places.sort(key=lambda priority: priority[2])
-        self.places.sort(key=lambda visit: visit[3])
-        return places
+
+
+
+
+
+
+    # def sort(self, places):
+    #     self.places.sort(key=lambda priority: priority[2])
+    #     self.places.sort(key=lambda visit: visit[3])
+    #     return places
