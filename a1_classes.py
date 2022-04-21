@@ -45,21 +45,21 @@ def list_places(list_of_places):
     visit = 0
 
     # list sort by visited status and by priority
+
     list_sort(list_of_places)
 
     # print list part
     for places in list_of_places:
         num += 1
-
         not_visited = " "
         if places[3] == "n":
             not_visited = "*"
 
-        print("{0}{1}. {2: <{3}} in {4: <{5}} priority {6}".format(not_visited, num, places[0],
-                                                                find_max_name(list_of_places),
-                                                                places[1],
-                                                                find_max_country(list_of_places),
-                                                                places[2]))
+        print("{0}{1}. {2: <{3}} in {4: <{5}} priority {5}".format(not_visited, num, places[0],
+                                                                   find_max_name(list_of_places),
+                                                                   places[1],
+                                                                   find_max_country(list_of_places),
+                                                                   places[2]))
 
         # add visit and un_visit element
         un_visit += places[3].count("n")
@@ -76,13 +76,13 @@ def add_new_place(list_of_places):
     appending_list = []
 
     # Add name and check error
-    method_name(appending_list)
+    check_usable_name(appending_list)
 
     # add country and check error
-    method_country(appending_list)
+    check_usable_country(appending_list)
 
     # add priority and check error
-    method_priority(appending_list)
+    check_usable_priority(appending_list)
 
     # new place is always un_visit
     appending_list.append("n")
@@ -95,6 +95,7 @@ def add_new_place(list_of_places):
     # add new place information and sort by visited status and by priority
     list_of_places.append(appending_list)
     list_sort(list_of_places)
+
 
 def mark_a_place_visited(list_of_places):
     num = 0
@@ -127,6 +128,7 @@ def mark_a_place_visited(list_of_places):
         # check input(mark) error
         mark_place_error_check(list_of_places, num)
 
+
 def save_places(csv_file, list_of_places):
     # open the file
     infile = open(file_name, "w")
@@ -157,12 +159,14 @@ def find_max_country(list_of_places):
     max_country = max_country[-1]
     return len(max_country)
 
+
 # function for sort by visited and by priority
 def list_sort(list_of_places):
     list_of_places.sort(key=lambda priority: priority[2])
     list_of_places.sort(key=lambda visit: visit[3])
 
-def method_name(appending_list):
+
+def check_usable_name(appending_list):
     while True:
         name_input = str(input("Name: "))
         # check name_input is blank
@@ -176,7 +180,7 @@ def method_name(appending_list):
             break
 
 
-def method_country(appending_list):
+def check_usable_country(appending_list):
     while True:
         country_input = input("Country: ")
         # check county_input is blank
@@ -190,7 +194,7 @@ def method_country(appending_list):
             break
 
 
-def method_priority(appending_list):
+def check_usable_priority(appending_list):
     while True:
         try:
             priority_input = int(input("Priority: "))
@@ -205,6 +209,7 @@ def method_priority(appending_list):
         # # check priority_input is not integer
         except ValueError:
             print("Invalid input; enter a valid number")
+
 
 def mark_place_error_check(list_of_places, num):
     while True:
@@ -232,6 +237,7 @@ def mark_place_error_check(list_of_places, num):
                 break
         except ValueError:
             print("Invalid input; enter a valid number")
+
 
 def main():
     print("Travel Tracker 1.0 - by Jihyung Park")
