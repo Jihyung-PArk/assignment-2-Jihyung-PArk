@@ -3,9 +3,6 @@ from placecollection import PlaceCollection
 from place import Place
 
 
-
-
-
 def run_tests():
     """Test PlaceCollection class."""
 
@@ -47,8 +44,6 @@ def run_tests():
     place_collection.sort("is_visited")
     print(place_collection)
 
-
-
     # TODO: Test saving places (check CSV file manually to see results)
     # Test saving places
     print("Test saving places:")
@@ -60,7 +55,6 @@ def run_tests():
     # Test get number of unvisited places
     print("Test number of unvisited places:")
     place_collection.get_num_of_unvisited()
-
 
 
 run_tests()

@@ -2,18 +2,16 @@
 File name : placecollection.py
 Github URL: https://github.com/Jihyung-PArk/assignment-2-Jihyung-PArk.git
 """
-from place import Place
 import csv
 
 # Constants
 FILE_NAME = 'places.csv'
 
 
-class PlaceCollection(Place):
+class PlaceCollection:
     """..."""
 
-    def __init__(self, places=None, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, places=None):
         if places is None:
             places = []
         self.places = places
@@ -36,6 +34,7 @@ class PlaceCollection(Place):
             infile.close()
 
             return self.places
+
         except IOError as error:
             print("I/O error: {}".format(error))
 
@@ -49,30 +48,27 @@ class PlaceCollection(Place):
         return self.places
 
     def add_place(self, Place):
-        # add_list = []
-        #
-        # places_test = super().__str__()
-        # add_list.append(places_test)
-        #
-        # print(places_test)
-        #
-        # print(add_list)
-        # infile = open(FILE_NAME, 'a')
-        # self.places.append(Place)
-        # infile.close()
-        pass
 
-    def sort(self, sort_element):
-        if sort_element == "priority":
+        places_test = str(Place)
+        add_list = places_test.split(",")
+        add_list[2] = int(add_list[2])
+        infile = open(FILE_NAME, 'a')
+        self.places.append(add_list)
+        infile.close()
+
+        return self.places
+
+    def sort(self, element):
+        if element == "priority":
             self.places.sort(key=lambda priority: priority[2], reverse=True)
             return self.places
-        elif sort_element == "name":
+        elif element == "name":
             self.places.sort(key=lambda name: name[0])
             return self.places
-        elif sort_element == "country":
+        elif element == "country":
             self.places.sort(key=lambda country: country[1])
             return self.places
-        elif sort_element == "is_visited":
+        elif element == "is_visited":
             self.places.sort(key=lambda is_visited: is_visited[3], reverse=True)
             return self.places
 
