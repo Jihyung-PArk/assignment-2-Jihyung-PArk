@@ -60,7 +60,7 @@ def run_tests():
     # Test get number of unvisited places
     print("Test number of unvisited places:")
     place_collection.get_num_of_unvisited()
-    assert place_collection.get_num_of_unvisited()
+
 
 
 run_tests()

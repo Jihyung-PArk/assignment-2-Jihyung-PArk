@@ -1,10 +1,9 @@
 """
 File name : placecollection.py
-github URL: https://github.com/Jihyung-PArk/assignment-2-Jihyung-PArk.git
+Github URL: https://github.com/Jihyung-PArk/assignment-2-Jihyung-PArk.git
 """
 from place import Place
 import csv
-
 
 # Constants
 FILE_NAME = 'places.csv'
@@ -22,10 +21,10 @@ class PlaceCollection(Place):
     def __str__(self):
         return '\n'.join(str(place) for place in self.places)
 
-    def load_places(self, FILE_NAME):
+    def load_places(self, file_name):
 
         try:
-            infile = open(FILE_NAME, 'r')
+            infile = open(file_name, 'r')
             for line in infile:
                 temp_list = line.strip().split(',')
 
@@ -40,14 +39,14 @@ class PlaceCollection(Place):
         except IOError as error:
             print("I/O error: {}".format(error))
 
-    def save_places(self, FILE_NAME):
-            infile = open(FILE_NAME, "w")
-            writer = csv.writer(infile)
-            # save new csv file
-            writer.writerows(self.places)
-            infile.close()
+    def save_places(self, file_name):
+        infile = open(file_name, "w")
+        writer = csv.writer(infile)
+        # save new csv file
+        writer.writerows(self.places)
+        infile.close()
 
-            return self.places
+        return self.places
 
     def add_place(self, Place):
         # add_list = []
@@ -80,21 +79,9 @@ class PlaceCollection(Place):
     def get_num_of_unvisited(self):
         un_visit = 0
         for line in self.places:
-            if line[3] == "n":
-                un_visit += 1
-            return un_visit
+            un_visit += line[3].count("n")
 
         print("{} place(s) unvisited".format(un_visit))
-
-
-
-
-
-
-
-
-
-
 
     # def sort(self, places):
     #     self.places.sort(key=lambda priority: priority[2])
