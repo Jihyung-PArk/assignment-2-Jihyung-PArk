@@ -48,14 +48,19 @@ class PlaceCollection:
 
             return self.places
 
-        except:
-
+        except IOError as error:
+            print("I/O error: {}".format(error))
 
     def add_place(self, Place):
 
         places_test = str(Place)
         add_list = places_test.split(",")
         add_list[2] = int(add_list[2])
+        if add_list[3] == " False":
+            add_list[3] = "n"
+        elif add_list[3] == " True":
+            add_list[3] = "v"
+
         infile = open(FILE_NAME, 'a')
         self.places.append(add_list)
         infile.close()
