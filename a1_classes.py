@@ -1,7 +1,9 @@
-"""..."""
-# Copy your first assignment to this file, then update it to use Place class
-# Optionally, you may also use PlaceCollection class
-
+"""
+Brief description : Travel Tracker
+Name: Jihyung Park
+Date started: 08/03/2021
+GitHub URL: https://github.com/Jihyung-PArk/assignment-1-Jihyung-PArk-master.git
+"""
 
 # Constants
 import csv
@@ -76,13 +78,13 @@ def add_new_place(list_of_places):
     appending_list = []
 
     # Add name and check error
-    check_usable_name(appending_list)
+    method_name(appending_list)
 
     # add country and check error
-    check_usable_country(appending_list)
+    method_country(appending_list)
 
     # add priority and check error
-    check_usable_priority(appending_list)
+    method_priority(appending_list)
 
     # new place is always un_visit
     appending_list.append("n")
@@ -166,7 +168,7 @@ def list_sort(list_of_places):
     list_of_places.sort(key=lambda visit: visit[3])
 
 
-def check_usable_name(appending_list):
+def method_name(appending_list):
     while True:
         name_input = str(input("Name: "))
         # check name_input is blank
@@ -180,7 +182,7 @@ def check_usable_name(appending_list):
             break
 
 
-def check_usable_country(appending_list):
+def method_country(appending_list):
     while True:
         country_input = input("Country: ")
         # check county_input is blank
@@ -194,7 +196,7 @@ def check_usable_country(appending_list):
             break
 
 
-def check_usable_priority(appending_list):
+def method_priority(appending_list):
     while True:
         try:
             priority_input = int(input("Priority: "))

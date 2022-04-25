@@ -87,8 +87,3 @@ class PlaceCollection:
             un_visit += line[3].count("n")
 
         print("{} place(s) unvisited".format(un_visit))
-
-    # def sort(self, places):
-    #     self.places.sort(key=lambda priority: priority[2])
-    #     self.places.sort(key=lambda visit: visit[3])
-    #     return places
