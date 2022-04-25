@@ -164,8 +164,8 @@ def find_max_country(list_of_places):
 
 # function for sort by visited and by priority
 def list_sort(list_of_places):
-    list_of_places.sort(key=lambda priority: priority[2])
-    list_of_places.sort(key=lambda visit: visit[3])
+    list_of_places.sort
+    list_of_places.sort
 
 
 def method_name(appending_list):

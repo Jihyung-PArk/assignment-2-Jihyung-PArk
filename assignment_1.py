@@ -1,7 +1,6 @@
 import csv
 from place import Place
 
-
 # Constants
 FILE_NAME = 'places.csv'
 
@@ -9,8 +8,8 @@ FILE_NAME = 'places.csv'
 class TravelTracker(Place):
     """..."""
 
-    def __init__(self, places=None):
-        super().__init__()
+    def __init__(self, places=None, name="", country="", priority=0, is_visited=False):
+        super().__init__(name, country, priority, is_visited)
         if places is None:
             places = []
         self.places = places
@@ -27,14 +26,12 @@ class TravelTracker(Place):
 
                 # convert the second item, which is priority, from str to int
                 temp_list[2] = int(temp_list[2])
-                super().name = temp_list[0]
-                super().country = temp_list[1]
-                super().priority = temp_list[2]
-                super().is_visited = temp_list[3]
-                self.places.append(super().__str__())
+                self.name = temp_list[0]
+                self.country = temp_list[1]
+                self.priority = temp_list[2]
+                self.is_visited = temp_list[3]
+                self.places.append(temp_list)
 
-                # list sort by visited status and by priority
-                # self.sort(self.places)
             infile.close()
 
             return self.places
@@ -48,8 +45,6 @@ class TravelTracker(Place):
         un_visit = 0
         visit = 0
 
-        # self.sort(self.places)
-
         try:
             for place in self.places:
                 num += 1
@@ -58,26 +53,23 @@ class TravelTracker(Place):
                     not_visited = "*"
                 # place.insert(0, not_visited)
 
-                un_visit += self.places[3].count("n")
-                visit += self.places[3].count("v")
+                un_visit += place[3].count("n")
+                visit += place[3].count("v")
 
-                print("{0}{1}. {2: <{3}} in {4: <{5}} priority {5}".format(not_visited, num,
-                                                                                  self.places[0],
-                                                                                  self.find_max_name(),
-                                                                                  self.places[1],
-                                                                                  self.find_max_country(),
-                                                                                  self.places[2]))
-
-
+                print("{0}{1}. {2: <{3}} in {4: <{5}} priority {6}".format(not_visited, num,
+                                                                           place[0],
+                                                                           self.find_max_name(),
+                                                                           place[1],
+                                                                           self.find_max_country(),
+                                                                           place[2]))
 
         except IOError as error:
             print("I/O error: {}".format(error))
 
     def add_new_place(self):
-        appending_list = [self.method_name(), self.method_country(), self.method_priority(), "n"]
+        appending_list = [self.method_name, self.method_country, self.method_priority, "n"]
 
         self.places.append(appending_list)
-        self.sort(self.places)
 
     def mark_a_place_visited(self):
 
@@ -85,7 +77,7 @@ class TravelTracker(Place):
         visit = 0
         un_visit = 0
 
-        self.sort(self.places)
+        # self.sort(self.places)
 
         for list_check in self.places:
             num_check += 1
@@ -120,43 +112,55 @@ class TravelTracker(Place):
         max_country = max_country[-1]
         return len(max_country)
 
-    def sort(self, sort_by):
+    @property
+    def sort(self):
+        sort_by = input("Sort by : ")
 
-            if sort_by == "priority":
-                self.places.sort(key=lambda priority: priority[2], reverse=True)
-                return self.places
-            elif sort_by == "name":
+        try:
+            if sort_by == "name":
                 self.places.sort(key=lambda name: name[0])
                 return self.places
             elif sort_by == "country":
                 self.places.sort(key=lambda country: country[1])
                 return self.places
+            elif sort_by == "priority":
+                self.places.sort(key=lambda priority: priority[2], reverse=True)
+                return self.places
             elif sort_by == "is_visited":
                 self.places.sort(key=lambda is_visited: is_visited[3], reverse=True)
                 return self.places
 
-    def method_check(self, input_value):
-        if input_value == "":
-            print("Input can not be blank")
+        except IOError as error:
+            print("I/O error: {}".format(error))
 
-        elif input_value.isnumeric() or input_value[0] == "-":
-            print("Input can not be integer")
-
-        else:
-            return input_value
-
+    @property
     def method_name(self):
-        while True:
-            input_value = input("Name: ")
-            self.method_check(input_value)
-            return input_value
 
+        while True:
+            name_value = input("name: ")
+            if name_value == "":
+                print("Input can not be blank")
+
+            elif name_value.isnumeric() or name_value[0] == "-":
+                print("Input can not be integer")
+
+            else:
+                return name_value
+
+    @property
     def method_country(self):
         while True:
-            input_value = input("Country: ")
-            self.method_check(input_value)
-            return input_value
+            country_value = input("country: ")
+            if country_value == "":
+                print("Input can not be blank")
 
+            elif country_value.isnumeric() or country_value[0] == "-":
+                print("Input can not be integer")
+
+            else:
+                return country_value
+
+    @property
     def method_priority(self):
         while True:
             try:
@@ -171,6 +175,7 @@ class TravelTracker(Place):
                 print("Invalid input; enter a valid number")
 
     def mark_place_error_check(self):
+
         try:
             list_change = int(input("Enter the number of a place to mark as visited :"))
             list_change_for_csv = list_change
@@ -195,9 +200,11 @@ class TravelTracker(Place):
         except ValueError:
             print("Invalid input; enter a valid number")
 
-    def display_menu(self):
+    @staticmethod
+    def display_menu():
         print("Menu:")
         print("L - List places")
         print("A - Add new place")
         print("M - Mark a place as visited")
+        print("S - Sort by")
         print("Q - Quit")

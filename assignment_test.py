@@ -17,6 +17,8 @@ def run_test():
             travel_tracker.add_new_place()
         elif choice == 'M':
             travel_tracker.mark_place_error_check()
+        elif choice == "S":
+            travel_tracker.sort()
         else:
             print("Invalid menu choice")
         travel_tracker.display_menu()
