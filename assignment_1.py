@@ -133,7 +133,6 @@ class TravelTracker(Place):
         except IOError as error:
             print("I/O error: {}".format(error))
 
-    @property
     def method_name(self):
 
         while True:
@@ -147,7 +146,6 @@ class TravelTracker(Place):
             else:
                 return name_value
 
-    @property
     def method_country(self):
         while True:
             country_value = input("country: ")
@@ -160,7 +158,6 @@ class TravelTracker(Place):
             else:
                 return country_value
 
-    @property
     def method_priority(self):
         while True:
             try:
@@ -200,7 +197,6 @@ class TravelTracker(Place):
         except ValueError:
             print("Invalid input; enter a valid number")
 
-    @staticmethod
     def display_menu():
         print("Menu:")
         print("L - List places")

@@ -1,10 +1,47 @@
 # Create your Kivy layout in the kv language here
 BoxLayout:
-    orientation: 'vertical'
-    Button:
-        text:'one'
-    Button:
-        text:'two'
-    Button:
-        text: 'three'
+    orientation: 'horizontal'
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_x: 0.3
+        Label:
+            text: 'Sort by:'
+        Button:
+            id: sort
+            text: 'Visited'
+        Label:
+            text: 'Add New Place...'
+        Label:
+            text: 'Name:'
+        TextInput:
+            id: name_input
+        Label:
+            text: 'Country:'
+        TextInput:
+            id: country_input
+        Label:
+            text: 'Priority:'
+        TextInput:
+            id: priority_input
+        Button:
+            id: add_place
+            text: 'Add Place'
+        Button:
+            id: clear
+            text: 'Clear'
+    BoxLayout:
+        orientation:'vertical'
+        size_hint_x: 0.7
+        Label:
+            id:is_visited
+            text: 'Places to visit:'
+            size_hint_y : 0.2
+        Button:
+            id: list_of_place
+            text: 'example'
+        Label:
+            id: announced
+            text: 'You visited '
+            size_hint_y: 0.2
+
 
