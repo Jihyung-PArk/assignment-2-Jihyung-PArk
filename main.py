@@ -47,29 +47,40 @@ class TravelTrackerApp(App):
 
             if line[3] == "v":
                 temp_button = Button(text="{} in {}, priority {} (visited)"
-                                     .format(line[0], line[1], line[2]), background_color=(0, 1, 0, 1))
+                                     .format(line[0], line[1], line[2]))
                 temp_button.bind(on_press=lambda x, value=line: self.press_widgets(value))
                 self.root.ids.list_of_place.add_widget(temp_button)
 
             elif line[3] == "n":
-                temp_button = Button(text="{} in {}, priority {}".format(line[0], line[1], line[2]))
+                temp_button = Button(text="{} in {}, priority {}"
+                                     .format(line[0], line[1], line[2]), background_color=(0, 1, 0, 1))
                 temp_button.bind(on_press=lambda x, value=line: self.press_widgets(value))
                 self.root.ids.list_of_place.add_widget(temp_button)
         self.save_places('places.csv')
 
     def press_widgets(self, value):
         if value[3] == "v":
-            self.announced = "{} already visited.".format(value[0])
-            # print(value)
+            for line in self.places:
+                if line[0] == value[0] and line[1] == value[1] and line[2] == value[2]:
+                    line[3] = "n"
+                    if value[2] <= 2:
+                        self.announced = "You need to visit {}. Get going!".format(value[0])
+                    else:
+                        self.announced = "You need to visit {}".format(value[0])
+                self.create_widgets()
+                self.places_to_visit()
 
         elif value[3] == "n":
-            self.announced = "{} will be mark".format(value[0])
             for line in self.places:
-                if line[0] == value[0] and line[1] == line[1] and line[2] == line[2]:
+                if line[0] == value[0] and line[1] == value[1] and line[2] == value[2]:
                     line[3] = "v"
                 # print(self.place)
-            self.create_widgets()
-            self.places_to_visit()
+                    if value[2] <= 2:
+                        self.announced = "You visited {}. Great travelling!".format(value[0])
+                    else:
+                        self.announced = "You visited {}".format(value[0])
+                self.create_widgets()
+                self.places_to_visit()
 
     def places_to_visit(self):
         num = 0
@@ -107,8 +118,33 @@ class TravelTrackerApp(App):
             print("I/O error: {}".format(error))
 
     def add_places(self):
-        new_place = Place(name="", country="", priority=0, is_visited="false")
+        new_name = self.root.ids.name_input.text
+        new_country = self.root.ids.country_input.text
+        new_priority = self.root.ids.priority_input.text
+        int_new_priority = int(new_priority)
 
+        if new_name == "" or new_country == "" or new_priority == "":
+            self.announced = "All fields must be completed"
+        elif int_new_priority <= 0:
+            self.announced = "Priority must be > 0"
+        elif not new_priority.isnumeric():
+            self.announced = "Please enter a valid number"
+
+        else:
+            add_list = [new_name, new_country, new_priority, "n"]
+            infile = open('places.csv', 'a')
+            self.places.append(add_list)
+            infile.close()
+            self.create_widgets()
+            self.root.ids.name_input.text = ""
+            self.root.ids.country_input.text = ""
+            self.root.ids.priority_input.text = ""
+
+    def clear_add_place(self):
+        self.announced = ""
+        self.root.ids.name_input.text = ""
+        self.root.ids.country_input.text = ""
+        self.root.ids.priority_input.text = ""
 
     def build(self):
         self.title = TITLE
@@ -117,6 +153,7 @@ class TravelTrackerApp(App):
         self.places_to_visit()
         self.sort_by = sorted(SORT)
         self.sort = self.sort_by[0]
+        self.announced = "Welcome to Travel Tracker 2.0"
         return self.root
 
 
