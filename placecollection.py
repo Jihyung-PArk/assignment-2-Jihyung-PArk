@@ -67,19 +67,16 @@ class PlaceCollection:
 
         return self.places
 
-    def sort(self, element):
-        if element == "priority":
+    def sort(self, sort_by):
+        if sort_by == "priority":
             self.places.sort(key=lambda priority: priority[2], reverse=True)
-            return self.places
-        elif element == "name":
+        elif sort_by == "name":
             self.places.sort(key=lambda name: name[0])
-            return self.places
-        elif element == "country":
+        elif sort_by == "country":
             self.places.sort(key=lambda country: country[1])
-            return self.places
-        elif element == "is_visited":
+        elif sort_by == "is_visited":
             self.places.sort(key=lambda is_visited: is_visited[3], reverse=True)
-            return self.places
+        return self.places
 
     def get_num_of_unvisited(self):
         un_visit = 0

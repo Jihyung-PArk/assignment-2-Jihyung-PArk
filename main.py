@@ -7,7 +7,7 @@ GitHub URL: https://github.com/Jihyung-PArk/assignment-2-Jihyung-PArk.git
 """
 # Create your main program in this file, using the TravelTrackerApp class
 # main.py
-
+import csv
 from kivy.app import App
 from kivy import Config
 from kivy.lang import Builder
@@ -16,6 +16,7 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.properties import StringProperty
 from kivy.properties import ListProperty
+from place import Place
 
 
 # constants
@@ -33,7 +34,7 @@ class TravelTrackerApp(App):
     sort = StringProperty()
     sort_by = ListProperty()
     place_collection = PlaceCollection()
-    place = place_collection.load_places('places.csv')
+    places = place_collection.load_places('places.csv')
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -42,7 +43,7 @@ class TravelTrackerApp(App):
         """Create buttons from dictionary entries and add them to the GUI."""
         self.root.ids.list_of_place.clear_widgets()
 
-        for line in self.place:
+        for line in self.places:
 
             if line[3] == "v":
                 temp_button = Button(text="{} in {}, priority {} (visited)"
@@ -54,6 +55,7 @@ class TravelTrackerApp(App):
                 temp_button = Button(text="{} in {}, priority {}".format(line[0], line[1], line[2]))
                 temp_button.bind(on_press=lambda x, value=line: self.press_widgets(value))
                 self.root.ids.list_of_place.add_widget(temp_button)
+        self.save_places('places.csv')
 
     def press_widgets(self, value):
         if value[3] == "v":
@@ -62,7 +64,7 @@ class TravelTrackerApp(App):
 
         elif value[3] == "n":
             self.announced = "{} will be mark".format(value[0])
-            for line in self.place:
+            for line in self.places:
                 if line[0] == value[0] and line[1] == line[1] and line[2] == line[2]:
                     line[3] = "v"
                 # print(self.place)
@@ -73,27 +75,40 @@ class TravelTrackerApp(App):
         num = 0
 
         self.root.ids.is_visited.clear_widgets()
-        for line in self.place:
+        for line in self.places:
             if line[3] == 'n':
                 num += 1
 
         visit_num = Label(text="Places to visit: {}".format(num))
         self.root.ids.is_visited.add_widget(visit_num)
 
-    def sort_value(self, sort_by):
+    def sort_value(self, element):
 
-        if sort_by == "Priority":
-            self.place.sort(key=lambda priority: priority[2], reverse=True)
-            self.create_widgets()
-        elif sort_by == "Name":
-            self.place.sort(key=lambda name: name[0])
-            self.create_widgets()
-        elif sort_by == "Country":
-            self.place.sort(key=lambda country: country[1])
-            self.create_widgets()
-        elif sort_by == "Visited":
-            self.place.sort(key=lambda is_visited: is_visited[3], reverse=True)
-            self.create_widgets()
+        if element == "Priority":
+            self.places.sort(key=lambda priority: priority[2], reverse=True)
+        elif element == "Name":
+            self.places.sort(key=lambda name: name[0])
+        elif element == "Country":
+            self.places.sort(key=lambda country: country[1])
+        elif element == "Visited":
+            self.places.sort(key=lambda is_visited: is_visited[3], reverse=True)
+
+        self.create_widgets()
+
+    def save_places(self, file_name):
+
+        try:
+            infile = open(file_name, "w")
+            writer = csv.writer(infile)
+            writer.writerows(self.places)
+            infile.close()
+
+        except IOError as error:
+            print("I/O error: {}".format(error))
+
+    def add_places(self):
+        new_place = Place(name="", country="", priority=0, is_visited="false")
+
 
     def build(self):
         self.title = TITLE

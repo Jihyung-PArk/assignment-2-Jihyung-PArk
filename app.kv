@@ -19,17 +19,24 @@ BoxLayout:
             text: 'Name:'
         TextInput:
             id: name_input
+            multiline: False
+            text:''
         Label:
             text: 'Country:'
         TextInput:
             id: country_input
+            multiline: False
+            text:''
         Label:
             text: 'Priority:'
         TextInput:
             id: priority_input
+            multiline: False
+            text:''
         Button:
             id: add_place
             text: 'Add Place'
+            on_press: app.add_places()
         Button:
             id: clear
             text: 'Clear'
