@@ -48,29 +48,30 @@ class TravelTrackerApp(App):
             if line[3] == "v":
                 temp_button = Button(text="{} in {}, priority {} (visited)"
                                      .format(line[0], line[1], line[2]), background_color=(0, 1, 0, 1))
-                temp_button.bind(on_release=self.press_widgets)
+                temp_button.bind(on_press=lambda x, value=line: self.press_widgets(value))
                 self.root.ids.list_of_place.add_widget(temp_button)
 
             elif line[3] == "n":
                 temp_button = Button(text="{} in {}, priority {}".format(line[0], line[1], line[2]))
-                temp_button.bind(on_release=self.press_widgets)
+                temp_button.bind(on_press=lambda x, value=line: self.press_widgets(value))
                 self.root.ids.list_of_place.add_widget(temp_button)
-            print(self.place)
+            # print(self.place)
 
-    def press_widgets(self, instance):
-        temp_button_value = instance.text
-        if "visited" in temp_button_value:
-            self.announced = "{}already visited.".format(temp_button_value)
-            print(temp_button_value)
+    def press_widgets(self, value):
+        if value[3] == "v":
+            self.announced = "{} already visited.".format(value[0])
+            # print(value)
 
-        if "visited" not in temp_button_value:
-            # self.line[3] = "v"
+        elif value[3] == "n":
+            self.announced = "{} will be mark".format(value[0])
+            for line in self.place:
+                if line[0] == value[0] and line[1] == line[1] and line[2] == line[2]:
+                    line[3] = "v"
+                # print(self.place)
             self.clear_widgets()
             self.create_widgets()
-
-
-
-
+            self.clear_visited_widgets()
+            self.places_to_visit()
 
     def clear_widgets(self):
         self.root.ids.list_of_place.clear_widgets()
@@ -83,6 +84,9 @@ class TravelTrackerApp(App):
 
         visit_num = Label(text="Places to visit: {}".format(num))
         self.root.ids.is_visited.add_widget(visit_num)
+
+    def clear_visited_widgets(self):
+        self.root.ids.is_visited.clear_widgets()
 
     def sort_value(self, sort_by):
 
