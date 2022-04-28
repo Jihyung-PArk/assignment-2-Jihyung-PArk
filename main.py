@@ -42,6 +42,7 @@ class TravelTrackerApp(App):
 
     def create_widgets(self):
         """Create buttons from dictionary entries and add them to the GUI."""
+        self.root.ids.list_of_place.clear_widgets()
 
         for line in self.place:
 
@@ -68,16 +69,13 @@ class TravelTrackerApp(App):
                 if line[0] == value[0] and line[1] == line[1] and line[2] == line[2]:
                     line[3] = "v"
                 # print(self.place)
-            self.clear_widgets()
             self.create_widgets()
-            self.clear_visited_widgets()
             self.places_to_visit()
-
-    def clear_widgets(self):
-        self.root.ids.list_of_place.clear_widgets()
 
     def places_to_visit(self):
         num = 0
+
+        self.root.ids.is_visited.clear_widgets()
         for line in self.place:
             if line[3] == 'n':
                 num += 1
@@ -85,25 +83,18 @@ class TravelTrackerApp(App):
         visit_num = Label(text="Places to visit: {}".format(num))
         self.root.ids.is_visited.add_widget(visit_num)
 
-    def clear_visited_widgets(self):
-        self.root.ids.is_visited.clear_widgets()
-
     def sort_value(self, sort_by):
 
         if sort_by == "Priority":
-            self.clear_widgets()
             self.place.sort(key=lambda priority: priority[2], reverse=True)
             self.create_widgets()
         elif sort_by == "Name":
-            self.clear_widgets()
             self.place.sort(key=lambda name: name[0])
             self.create_widgets()
         elif sort_by == "Country":
-            self.clear_widgets()
             self.place.sort(key=lambda country: country[1])
             self.create_widgets()
         elif sort_by == "Visited":
-            self.clear_widgets()
             self.place.sort(key=lambda is_visited: is_visited[3], reverse=True)
             self.create_widgets()
 
