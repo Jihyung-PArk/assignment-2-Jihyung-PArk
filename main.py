@@ -56,7 +56,6 @@ class TravelTrackerApp(App):
                 temp_button = Button(text="{} in {}, priority {}".format(line[0], line[1], line[2]))
                 temp_button.bind(on_press=lambda x, value=line: self.press_widgets(value))
                 self.root.ids.list_of_place.add_widget(temp_button)
-            # print(self.place)
 
     def press_widgets(self, value):
         if value[3] == "v":
