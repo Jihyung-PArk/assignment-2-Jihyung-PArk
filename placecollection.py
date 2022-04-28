@@ -51,9 +51,9 @@ class PlaceCollection:
         except IOError as error:
             print("I/O error: {}".format(error))
 
-    def add_place(self, Place):
+    def add_place(self, place):
 
-        places_test = str(Place)
+        places_test = str(place)
         add_list = places_test.split(",")
         add_list[2] = int(add_list[2])
         if add_list[3] == " False":

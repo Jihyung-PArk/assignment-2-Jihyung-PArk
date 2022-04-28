@@ -6,9 +6,13 @@ BoxLayout:
         size_hint_x: 0.3
         Label:
             text: 'Sort by:'
-        Button:
-            id: sort
-            text: 'Visited'
+        BoxLayout:
+            orientation:'horizontal'
+            Spinner:
+                id:spinner_id
+                text: app.sort
+                values: app.sort_by
+                on_text: app.sort_value(self.text)
         Label:
             text: 'Add New Place...'
         Label:
@@ -32,16 +36,15 @@ BoxLayout:
     BoxLayout:
         orientation:'vertical'
         size_hint_x: 0.7
-        Label:
+        BoxLayout:
             id:is_visited
-            text: 'Places to visit:'
             size_hint_y : 0.2
-        Button:
+        BoxLayout:
+            orientation:'vertical'
             id: list_of_place
-            text: 'example'
+            text: ''
         Label:
-            id: announced
-            text: 'You visited '
+            text: app.announced
             size_hint_y: 0.2
 
 
