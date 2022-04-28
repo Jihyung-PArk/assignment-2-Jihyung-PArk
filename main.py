@@ -18,8 +18,6 @@ from kivy.properties import StringProperty
 from kivy.properties import ListProperty
 
 
-
-
 # constants
 
 TITLE = 'Travel Tracker'
@@ -100,12 +98,11 @@ class TravelTrackerApp(App):
     def build(self):
         self.title = TITLE
         self.root = Builder.load_file('app.kv')
-        # self.create_widgets()
+        self.create_widgets()
         self.places_to_visit()
         self.sort_by = sorted(SORT)
         self.sort = self.sort_by[0]
         return self.root
-
 
 
 if __name__ == '__main__':
