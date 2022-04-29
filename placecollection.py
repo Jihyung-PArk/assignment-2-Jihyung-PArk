@@ -52,35 +52,46 @@ class PlaceCollection:
             print("I/O error: {}".format(error))
 
     def add_place(self, place):
+        try:
+            places_test = str(place)
+            add_list = places_test.split(",")
+            add_list[2] = int(add_list[2])
+            if add_list[3] == " False":
+                add_list[3] = "n"
+            elif add_list[3] == " True":
+                add_list[3] = "v"
 
-        places_test = str(place)
-        add_list = places_test.split(",")
-        add_list[2] = int(add_list[2])
-        if add_list[3] == " False":
-            add_list[3] = "n"
-        elif add_list[3] == " True":
-            add_list[3] = "v"
+            infile = open(FILE_NAME, 'a')
+            self.places.append(add_list)
+            infile.close()
 
-        infile = open(FILE_NAME, 'a')
-        self.places.append(add_list)
-        infile.close()
+            return self.places
 
-        return self.places
+        except IOError as error:
+            print("I/O error: {}".format(error))
 
     def sort(self, sort_by):
-        if sort_by == "priority":
-            self.places.sort(key=lambda priority: priority[2], reverse=True)
-        elif sort_by == "name":
-            self.places.sort(key=lambda name: name[0])
-        elif sort_by == "country":
-            self.places.sort(key=lambda country: country[1])
-        elif sort_by == "is_visited":
-            self.places.sort(key=lambda is_visited: is_visited[3], reverse=True)
-        return self.places
+        try:
+            if sort_by == "priority":
+                self.places.sort(key=lambda priority: priority[2], reverse=True)
+            elif sort_by == "name":
+                self.places.sort(key=lambda name: name[0])
+            elif sort_by == "country":
+                self.places.sort(key=lambda country: country[1])
+            elif sort_by == "is_visited":
+                self.places.sort(key=lambda is_visited: is_visited[3], reverse=True)
+            return self.places
+
+        except IOError as error:
+            print("I/O error: {}".format(error))
 
     def get_num_of_unvisited(self):
-        un_visit = 0
-        for line in self.places:
-            un_visit += line[3].count("n")
+        try:
+            un_visit = 0
+            for line in self.places:
+                un_visit += line[3].count("n")
 
-        print("{} place(s) unvisited".format(un_visit))
+            print("{} place(s) unvisited".format(un_visit))
+
+        except IOError as error:
+            print("I/O error: {}".format(error))
