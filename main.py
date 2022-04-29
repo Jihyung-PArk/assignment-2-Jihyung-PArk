@@ -2,7 +2,7 @@
 Travel Tracker (Kivy)
 Name: Jihyung Park
 Date:12/04/2022
-Brief Project Description:
+Brief Project Description: Travel Tracker 2.0 (Complete)
 GitHub URL: https://github.com/Jihyung-PArk/assignment-2-Jihyung-PArk.git
 """
 # Create your main program in this file, using the TravelTrackerApp class

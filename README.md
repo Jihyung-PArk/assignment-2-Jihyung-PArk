@@ -1,4 +1,4 @@
-# CP1404 Assignment 2: Travel Tracker 2.0 by YOURNAME
+# CP1404 Assignment 2: Travel Tracker 2.0 by Jihyung Park
 
 _Edit this README, replacing this line and above with your own name/details._  
 _At the end of the project, complete the project reflection below by answering the questions (replace the ... parts)._
