@@ -19,10 +19,13 @@ class PlaceCollection:
     def __str__(self):
         return '\n'.join(str(place) for place in self.places)
 
+    # load 'csv' file to list
     def load_places(self, file_name):
 
         try:
             infile = open(file_name, 'r')
+
+            # split file list to each line
             for line in infile:
                 temp_list = line.strip().split(',')
 
@@ -30,7 +33,6 @@ class PlaceCollection:
                 temp_list[2] = int(temp_list[2])
                 self.places.append(temp_list)
 
-                # list sort by visited status and by priority
             infile.close()
 
             return self.places
@@ -38,6 +40,7 @@ class PlaceCollection:
         except IOError as error:
             print("I/O error: {}".format(error))
 
+    # save list to 'csv' file
     def save_places(self, file_name):
 
         try:
@@ -51,11 +54,14 @@ class PlaceCollection:
         except IOError as error:
             print("I/O error: {}".format(error))
 
+    # add place to list
     def add_place(self, place):
         try:
             places_test = str(place)
             add_list = places_test.split(",")
             add_list[2] = int(add_list[2])
+
+            # visit state is boolean. Need to change "n" or "v"
             if add_list[3] == " False":
                 add_list[3] = "n"
             elif add_list[3] == " True":
@@ -70,6 +76,7 @@ class PlaceCollection:
         except IOError as error:
             print("I/O error: {}".format(error))
 
+    # sort list by name, priority, country, or visit state
     def sort(self, sort_by):
         try:
             if sort_by == "priority":
@@ -85,6 +92,7 @@ class PlaceCollection:
         except IOError as error:
             print("I/O error: {}".format(error))
 
+    # check how many places visited
     def get_num_of_unvisited(self):
         try:
             un_visit = 0
