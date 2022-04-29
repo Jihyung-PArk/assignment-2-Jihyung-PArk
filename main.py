@@ -72,7 +72,7 @@ class TravelTrackerApp(App):
                         else:
                             self.announced = "You need to visit {}".format(value[0])
                     self.create_widgets()
-                    self.places_to_visit()
+                    self.check_places_to_visit()
 
             elif value[3] == "n":
                 for line in self.places:
@@ -84,12 +84,12 @@ class TravelTrackerApp(App):
                         else:
                             self.announced = "You visited {}".format(value[0])
                     self.create_widgets()
-                    self.places_to_visit()
+                    self.check_places_to_visit()
 
         except IOError as error:
             print("I/O error: {}".format(error))
 
-    def places_to_visit(self):
+    def check_places_to_visit(self):
         num = 0
 
         try:
@@ -104,7 +104,7 @@ class TravelTrackerApp(App):
         except IOError as error:
             print("I/O error: {}".format(error))
 
-    def sort_value(self, element):
+    def sort_by_element(self, element):
 
         try:
             if element == "Priority":
@@ -173,7 +173,7 @@ class TravelTrackerApp(App):
         self.title = TITLE
         self.root = Builder.load_file('app.kv')
         self.create_widgets()
-        self.places_to_visit()
+        self.check_places_to_visit()
         self.sort_by = sorted(SORT)
         self.sort = self.sort_by[0]
         self.announced = "Welcome to Travel Tracker 2.0"
